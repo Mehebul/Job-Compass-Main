@@ -4,6 +4,8 @@ import Jobs from "./Jobs";
 import Card from "../components/Card"
 import Sidebar from "../sidebar/Sidebar";
 
+
+
 const Home = () => {
   const [selectedCategory, setSelectedcategory] = useState(null);
   const [jobs, setJobs] = useState([]);
