@@ -79,14 +79,8 @@ const Home = () => {
           salaryType,
           employmentType,
           postingDate,
-        }) => 
-        jobLocation.toLowerCase() === selected.toLowerCase() ||
-        parseInt(maxPrice) <= parseInt(selected) ||
-        experienceLevel === selected ||
-        salaryType.toLowerCase() === selected.toLowerCase() ||
-        employmentType.toLowerCase() === selected.toLowerCase()
+        })=>postingDate >= selected      
       );
-
       console.log(filteredJobs);
     }
     //slice the data based on current page
@@ -104,18 +98,18 @@ const Home = () => {
       {/*main content */}
       <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12">
         {/* left side */}
-        <div className="bg-white p-4 rounded">
+        <div className="p-4 bg-white rounded">
           <Sidebar handleChange={handleChange} handleClick={handleClick} />
         </div>
         {/* job card */}
-        <div className="col-span-2 bg-white p-4 rounded-sm">
+        <div className="col-span-2 p-4 bg-white rounded-sm">
           {isLoading ? (
             <p className="font-medium">Loading On......</p>
           ) : result.length > 0 ? (
             <Jobs result={result} />
           ) : (
             <>
-              <h3 className="text-lg font-bold mb-2">{result.length}Jobs</h3>
+              <h3 className="mb-2 text-lg font-bold">{result.length}Jobs</h3>
               <p>Oops ! No Data Found !</p>
             </>
           )}
@@ -145,7 +139,7 @@ const Home = () => {
           )}
         </div>
         {/* right side */}
-        <div className="bg-white p-4 rounded">Right</div>
+        <div className="p-4 bg-white rounded">Right</div>
       </div>
     </div>
   );
