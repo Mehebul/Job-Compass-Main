@@ -79,7 +79,7 @@ const Home = () => {
           salaryType,
           employmentType,
           postingDate,
-        })=>postingDate >= selected      
+        }) => postingDate <= selected
       );
       console.log(filteredJobs);
     }
