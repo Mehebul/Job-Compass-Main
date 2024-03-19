@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Jobs from "./Jobs";
 import Card from "../components/Card";
 import Sidebar from "../sidebar/Sidebar";
+import Newsletter from "../components/Newsletter";
 
 const Home = () => {
   const [selectedCategory, setSelectedcategory] = useState(null);
@@ -79,7 +80,13 @@ const Home = () => {
           salaryType,
           employmentType,
           postingDate,
-        }) => postingDate <= selected
+        }) => 
+          jobLocation.toLowerCase() === selected.toLowerCase() ||
+          parseInt(maxPrice) <= parseInt(selected) ||
+          postingDate >= selected ||
+          experienceLevel === selected ||
+          salaryType.toLowerCase() === selected.toLowerCase() ||
+          employmentType.toLowerCase() === selected.toLowerCase()     
       );
       console.log(filteredJobs);
     }
@@ -139,7 +146,7 @@ const Home = () => {
           )}
         </div>
         {/* right side */}
-        <div className="p-4 bg-white rounded">Right</div>
+        <div className="p-4 bg-white rounded"><Newsletter/></div>
       </div>
     </div>
   );
