@@ -3,6 +3,7 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import { Link } from 'react-router-dom'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,6 +12,7 @@ function App() {
     <>
     <Navbar/>
     <Outlet/>
+    <Footer/>
     </>
   )
 }

@@ -5,7 +5,7 @@ import InputField from '../components/InputField';
 const Salary = ({handleChange, handleClick}) => {
   return (
     <div>
-        <h4 className='text-lg font-medium mb-2'>Salary</h4>
+        <h4 className='mb-2 text-lg font-medium'>Salary</h4>
         <div className='mb-4'>
           <Button onClickHandler={handleClick} value="" title="Hourly"/>
           <Button onClickHandler={handleClick} value="Monthly" title="Monthly"/>
@@ -16,7 +16,7 @@ const Salary = ({handleChange, handleClick}) => {
         <label className="sidebar-label-container">
           <input
             type="radio"
-            name="test"
+            name="test2"
             id="test"
             value=""
             onChange={handleChange}
