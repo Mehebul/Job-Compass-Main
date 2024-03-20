@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+// import { signInWithEmailAndPassword} from 'firebase/auth';
 // import { auth } from '../fire';
-// import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-export default function Register({
+function Login({
     setAuthState,
     setUser
 }) {
@@ -11,30 +11,39 @@ export default function Register({
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    const onSignUpHandle = () => {
+
+    const handleLogin = () => {
         if(email !== null && password !== null) {
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((user) => {
-                setUser(user.user.email);
+            signInWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                setUser(email)
                 setAuthState('home')
             })
-            .catch((err) => {
-                alert(err)
-            })
+            .catch((err) => alert(err));
         }
     }
 
-    return (
-        <div className=' w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
-            <h1 className='text-5xl font-semibold'>Register</h1>
-            <p className='font-medium text-lg text-gray-500 mt-4'>Welcome back! Please enter you details.</p>
+  return (
+    <div className="flex w-full h-screen">
+      <div className="flex items-center justify-center w-full lg:w-1/2">
+      <div className=' w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
+            <h1 className='text-5xl font-semibold'>Register Now !</h1>
+            <p className='mt-4 text-lg font-medium text-gray-500'>Register To Join With Us! Please enter you details.</p>
             <div className='mt-8'>
+                <div className='flex flex-col'>
+                    <label className='text-lg font-medium'>Full Name</label>
+                    <input 
+                        value={Text}
+                        onChange={(e) => setText(e.target.value)}
+                        className='w-full p-4 mt-1 bg-transparent border-2 border-gray-100 rounded-xl'
+                        placeholder="Enter your Full Name"/>
+                </div>
                 <div className='flex flex-col'>
                     <label className='text-lg font-medium'>Email</label>
                     <input 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                        className='w-full p-4 mt-1 bg-transparent border-2 border-gray-100 rounded-xl'
                         placeholder="Enter your email"/>
                 </div>
                 <div className='flex flex-col mt-4'>
@@ -42,24 +51,32 @@ export default function Register({
                     <input 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-                        placeholder="Enter your email"
+                        className='w-full p-4 mt-1 bg-transparent border-2 border-gray-100 rounded-xl'
+                        placeholder="Enter your password"
                         type={"password"}
                     />
                 </div>
-                <div className='mt-8 flex justify-between items-center'>
+                <div className='flex flex-col mt-4'>
+                    <label className='text-lg font-medium'>Confirm Password</label>
+                    <input 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className='w-full p-4 mt-1 bg-transparent border-2 border-gray-100 rounded-xl'
+                        placeholder="Confirm your password"
+                        type={"password"}
+                    />
+                </div>
+                <div className='flex items-center justify-between mt-8'>
                     <div>
                         <input  type="checkbox" id='remember'/>
-                        <label className='ml-2 font-medium text-base' for="remember">Remember for 30 days</label>
+                        <label className='ml-2 text-base font-medium' for="remember">Remember for 30 days</label>
                     </div>
-                    <button className='font-medium text-base text-violet-500'>Forgot password</button>
+                    <button className='text-base font-medium text-violet-500'>Forgot password</button>
                 </div>
-                <div className='mt-8 flex flex-col gap-y-4'>
+                <div className='flex flex-col mt-8 gap-y-4'>
                     <button 
-                        onClick={onSignUpHandle}
-                        className='active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>
-                        Register
-                    </button>
+                        onClick={handleLogin}
+                        className='active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>Sign in</button>
                     <button 
                         className='flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4  rounded-xl text-gray-700 font-semibold text-lg border-2 border-gray-100 '>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,11 +88,21 @@ export default function Register({
                             Sign in with Google
                     </button>
                 </div>
-                <div className='mt-8 flex justify-center items-center'>
-                    <p className='font-medium text-base'>Don't have an account?</p>
-                    <button className='ml-2 font-medium text-base text-violet-500'>Sign up</button>
+                <div className='flex items-center justify-center mt-8'>
+                    <p className='text-base font-medium'>Don't have an account?</p>
+                    <button 
+                        onClick={() => setAuthState('register')}
+                        className='ml-2 text-base font-medium text-violet-500'>Sign up</button>
                 </div>
             </div>
         </div>
-    )
+      </div>
+      <div className="relative items-center justify-center hidden w-1/2 h-full bg-gray-200 lg:flex">
+        <div className="rounded-full w-60 h-60 bg-gradient-to-tr from-violet-500 to-pink-500 animate-spin"/> 
+        <div className="absolute bottom-0 w-full h-1/2 bg-white/10 backdrop-blur-lg" />
+      </div>
+    </div>
+  );
 }
+
+export default Login;
