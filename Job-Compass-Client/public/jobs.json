@@ -166,6 +166,20 @@
       "experienceLevel": "Intership",
       "employmentType": "Temporary",
       "description": "Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt."
+    },
+    {
+      "id": 7,
+      "companyName": "CyberLance Global Solutions",
+      "jobTitle": "Security Engineer",
+      "companyLogo": "/images/cgs.png",
+      "minPrice": "90",
+      "maxPrice": "150",
+      "salaryType": "Monthly",
+      "jobLocation": "India",
+      "postingDate": "2024-03-20",
+      "experienceLevel": "Intership",
+      "employmentType": "Temporary",
+      "description": "Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt."
     }
   ]
   
