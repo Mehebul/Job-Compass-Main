@@ -35,6 +35,7 @@ const Home = () => {
   );
   // ..........radio filtering...........
   const handleChange = (event) => {
+    console.log("INSIDE HOME COMP SET SELECTED CATEGORY", event.target.value)
     setSelectedcategory(event.target.value);
   };
 
@@ -89,6 +90,7 @@ const Home = () => {
           employmentType.toLowerCase() === selected.toLowerCase()     
       );
       console.log(filteredJobs);
+      // setJobs(filteredJobs)
     }
     //slice the data based on current page
     const { startIndex, endIndex } = calculatePageRange();
