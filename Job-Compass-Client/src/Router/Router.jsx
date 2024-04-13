@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
-// import Login from "../auth/Login";
+import Login from "../auth/Login";
 import Error from "../Pages/Error";
 import Register from './../auth/Register';
 import CreateJob from "../Pages/CreateJob";
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <Home /> },
-      // { path: "/Login", element: <Login /> },
+      { path: "/Login", element: <Login /> },
       { path: "/Register", element: <Register /> },
       { path: "*", element: <Error /> },
       { path: "/post-job", element: <CreateJob/>},
