@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const ErrorMiddleware = require('./Middleware/ErrorMiddleware')
+const userRouter = require('./Routes/userrouter')
 const port = process.env.PORT || 3000;
 require('dotenv').config()
 
@@ -31,6 +33,7 @@ async function run() {
     const db = client.db("JOBCOMPASS");
     const jobsCollections = db.collection("demoJobs");
     
+    
     // post a job
     app.post("/post-job", async(req, res) => {
       const body = req.body;
@@ -46,7 +49,8 @@ async function run() {
         })
       }
     })
-
+    //Api Call user Routes
+    app.use("/api", userRouter)
     // get all jobs
     app.get("/all-jobs", async(req, res) => {
       const jobs = await jobsCollections.find({}).toArray()
@@ -106,7 +110,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-
+app.use(ErrorMiddleware)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
