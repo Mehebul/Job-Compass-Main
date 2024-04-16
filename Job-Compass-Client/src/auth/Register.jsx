@@ -1,4 +1,4 @@
-import { useState, setUser } from "react";
+import { useState } from "react";
 
 const Register = () => {
   const [RUser, setRUser] = useState({
@@ -12,6 +12,7 @@ const Register = () => {
   const handleRegisterInput = (e) => {
     let username = e.target.name;
     let value = e.target.value;
+    // console.log(RUser)
     setRUser({
       ...RUser,
       [username]: value,
@@ -23,12 +24,13 @@ const Register = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    console.log(RUser)
     try {
-      if (IsMatch) {
-        const Response = await fetch("http://localhost:3000/api/register", {
+      // if (IsMatch) {
+        const response = await fetch("http://localhost:3000/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userRegister),
+          body: JSON.stringify(RUser),
         });
         if (response.ok) {
           const res_data = await response.json();
@@ -36,16 +38,16 @@ const Register = () => {
 
           //* storing data in Cookies
 
-          setUserRegister({
-            name: "",
+          setRUser({
+            username: "",
             email: "",
             password: "",
           });
 
-          navigate("/");
+          // navigate("/");
           alert("success");
         }
-      }
+      // }
     } catch (error) {}
   };
 
@@ -75,7 +77,7 @@ const Register = () => {
               >
                 <div>
                   <label
-                    for="name"
+                    for="username"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your Name
@@ -129,7 +131,7 @@ const Register = () => {
                 </div>
                 <div>
                   <label
-                    for="confirm-password"
+                    for="confirmpassword"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Confirm password
@@ -146,7 +148,7 @@ const Register = () => {
                   />
                 </div>
                 <div class="flex items-start">
-                  <div class="flex items-center h-5">
+                  {/* <div class="flex items-center h-5">
                     <input
                       id="terms"
                       aria-describedby="terms"
@@ -154,8 +156,8 @@ const Register = () => {
                       class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required="true"
                     />
-                  </div>
-                  <div class="ml-3 text-sm">
+                  </div> */}
+                  {/* <div class="ml-3 text-sm">
                     <label
                       for="terms"
                       class="font-light text-gray-500 dark:text-gray-300"
@@ -168,10 +170,10 @@ const Register = () => {
                         Terms and Conditions
                       </a>
                     </label>
-                  </div>
+                  </div> */}
                 </div>
                 <button
-                  type="submit"
+                  // type="submit"
                   class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Create an account

@@ -49,11 +49,11 @@ userSchema.pre("save", async function (next) {
   
   //* Generates a JSON Web Token (JWT) that contains the user's ID.
   //* @returns {string} The JWT.
-  userSchema.methods.getJWTtoken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: process.env.JWT_EXPIRE_IN,
-    });
-  };
+  // userSchema.methods.getJWTtoken = function () {
+  //   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+  //     expiresIn: process.env.JWT_EXPIRE_IN,
+  //   });
+  // };
   
   //* Compares the given password with the hashed password of the user document.
   //* @param {string} password - The password to be compared.
@@ -63,4 +63,4 @@ userSchema.pre("save", async function (next) {
   };
 
 
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("User", userSchema)

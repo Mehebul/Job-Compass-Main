@@ -1,29 +1,29 @@
 const User = require("../Model/usermodel");
 const catchAsyncError = require("../Middleware/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
-const sendToken = require("../utils/jwtToken");
+// const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 
 //*registration
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   const user = await User.create({
-    name,
+    username,
     email,
     password,
   });
 
   // const token = user.getJWTtoken();
 
-  // res.status(201).json({
-  //     success: true,
-  //     // user,
-  //     token
-  // });
+  res.status(201).json({
+      success: true,
+      user,
+      // token
+  });
 
-  sendToken(user, 201, res);
+  // sendToken(user, 201, res);
 });
 
 //* login
@@ -45,8 +45,12 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
   if (!isValidPassword) {
     return next(new ErrorHandler("invalid Email or password", 401));
   }
-
-  sendToken(user, 200, res);
+  res.status(201).json({
+    success: true,
+    // user,
+    // token
+});
+  // sendToken(user, 200, res);
 });
 
 //* Logout
@@ -131,7 +135,12 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
 
   await user.save();
-  sendToken(user, 200, res);
+  res.status(201).json({
+    success: true,
+    // user,
+    // token
+});
+  // sendToken(user, 200, res);
 });
 
 //* get user information
@@ -160,8 +169,12 @@ exports.updateUserPassword = catchAsyncError(async (req, res, next) => {
   user.password = req.body.newPassword;
 
   await user.save();
-
-  sendToken(user, 200, res);
+  res.status(201).json({
+    success: true,
+    // user,
+    // token
+});
+  // sendToken(user, 200, res);
 });
 
 //* update User Profile

@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const ErrorMiddleware = require('./Middleware/ErrorMiddleware')
+const DatabaseConnection = require('./Config/dabaseconnection')
 const userRouter = require('./Routes/userrouter')
 const port = process.env.PORT || 3000;
 require('dotenv').config()
@@ -9,14 +10,19 @@ require('dotenv').config()
 
 // middleware
 app.use(express.json())
-app.use(cors())
-
+// app.use(cors())
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  credentials: true,
+};
+app.use(cors(corsOptions));  //handling cors frontend issues
 // user: 123saptarsi
 // pass: 2hOIQ449MChQTrdN
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@job-compass-db.qd60zsg.mongodb.net/?retryWrites=true&w=majority&appName=job-compass-db`;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -29,12 +35,12 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    // create db
+//     // create db
     const db = client.db("JOBCOMPASS");
     const jobsCollections = db.collection("demoJobs");
     
     
-    // post a job
+//     // post a job
     app.post("/post-job", async(req, res) => {
       const body = req.body;
       body.createAt = new Date();
@@ -49,15 +55,15 @@ async function run() {
         })
       }
     })
-    //Api Call user Routes
+//     //Api Call user Routes
     app.use("/api", userRouter)
-    // get all jobs
+//     // get all jobs
     app.get("/all-jobs", async(req, res) => {
       const jobs = await jobsCollections.find({}).toArray()
       res.send(jobs);
     })
 
-    // get single job by id
+//     // get single job by id
     app.get("/all-jobs/:id", async(req, res) =>{
       const id = req.params.id;
       const job = await jobsCollections.findOne({
@@ -66,14 +72,14 @@ async function run() {
       res.send(job)
     })
 
-    // get jobs by email
+//     // get jobs by email
     app.get("/myJobs/:email", async(req, res) =>{
       // console.log(req.params.email)
       const jobs = await jobsCollections.find({postedBy : req.params.email }).toArray();
       res.send(jobs)
     })
     
-    //delete a job
+//     //delete a job
     app.delete("/job/:id", async(req,res) =>{
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)}
@@ -81,7 +87,7 @@ async function run() {
       res.send(result)
     })
 
-    // UPDATE JOBS
+//     // UPDATE JOBS
     app.patch("/update-job/:id", async(req, res) =>{
       const id = req.params.id;
       const jobData = req.body;
@@ -97,7 +103,7 @@ async function run() {
       res.send(result)
     })
 
-    // Send a ping to confirm a successful connection
+//     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
@@ -111,6 +117,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 app.use(ErrorMiddleware)
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+const Server = DatabaseConnection().then(()=>{
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
 })
